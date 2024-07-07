@@ -36,6 +36,7 @@ private:
     MainPanelConstraints mainPanelConstrains;
     
     void layoutBuild();
+    void layoutBuildMainPanel();
     void drawProfile(); 
     void drawIdleGenerators(); 
 };

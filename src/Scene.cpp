@@ -114,6 +114,11 @@ void Scene::update(float deltaTime, UIControlFlags* rControlFlags)
 
 void Scene::layoutBuild()
 {
+    layoutBuildMainPanel();
+}
+
+void Scene::layoutBuildMainPanel()
+{
     mainPanelConstrains.entryHeight = (float)GuiGetStyle(DEFAULT, TEXT_SIZE)*10.0f;
     mainPanelConstrains.entryGap = 5;
     mainPanelConstrains.panelScrArea = {SCREEN_WIDTH_DEFAULT*.3+5, 5, SCREEN_WIDTH_DEFAULT*.7-5, SCREEN_HEIGHT_DEFAULT-5};
