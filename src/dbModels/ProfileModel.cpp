@@ -1,10 +1,10 @@
 #include "ProfileModel.hpp"
-#include <spdlog/spdlog.h>
+#include "../igcommon.h"
 
 namespace IG {
 
     static int fProfile(void *a_param, int argc, char **argv, char **column){
-        spdlog::debug("Entered profileCallback");
+        spdlog::debug("Entered profileCallback - ID: {}", argv[0]);
         IG::Profile* caller = static_cast<IG::Profile*>(a_param);
         ProfileEntry newEntry;
 
@@ -45,6 +45,10 @@ namespace IG {
 
     IG::Profile::Profile(DBManager* pDB) {
         db = pDB;
+    }
+
+    void IG::Profile::init()
+    {
         readDB();
     }
 
@@ -57,15 +61,15 @@ namespace IG {
         
         spdlog::debug("Profile found");
         spdlog::debug("\nID: {0}\n - name {1}\n", 
-		      profileData.id, profileData.user_id);
+		      data.id, data.user_id);
     }
 
     ProfileEntry IG::Profile::getData() {
-        return profileData;
+        return data;
     }
     
     void IG::Profile::setData(ProfileEntry pNewEntry)
     {
-	profileData = pNewEntry;
+	data = pNewEntry;
     }
 }

@@ -5,7 +5,6 @@
 
 #include "DBManager.hpp"
 #include <cstdint>
-#include <spdlog/spdlog.h>
 #include <vector>
 
 namespace IG
@@ -29,6 +28,7 @@ typedef struct {
 class Generator {
 public:
 	Generator(DBManager* pDB);
+	void init();
 	std::vector<GeneratorEntry> getData();
 	const int count();
 	void addGenerator(GeneratorEntry pNewGenerator);
@@ -36,7 +36,8 @@ public:
 
 private:
 	DBManager* db;
-	std::vector<GeneratorEntry> idleGenerators;
+	std::vector<GeneratorEntry> data;
+
 	void readDB();
 };
 }

@@ -1,10 +1,8 @@
 #ifndef IG_PROFILE_MODEL
 #define IG_PROFILE_MODEL
-
 #pragma once
 
 #include "DBManager.hpp"
-#include <spdlog/spdlog.h>
 
 namespace IG
 {
@@ -27,13 +25,15 @@ typedef struct {
 class Profile {
 public:
 	Profile(DBManager* pDB);
+	void init();
 	ProfileEntry getData();
 	void setData(ProfileEntry pNewEntry);
 	void update(float deltaTime);
 
 private:
 	DBManager* db;
-	ProfileEntry profileData;
+	ProfileEntry data;
+
 	void readDB();
 };
 }

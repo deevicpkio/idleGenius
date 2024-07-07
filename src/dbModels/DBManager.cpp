@@ -1,5 +1,4 @@
 #include "DBManager.hpp"
-#include <spdlog/spdlog.h>
 
 DBManager::DBManager()
 {

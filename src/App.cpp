@@ -1,6 +1,6 @@
 #include "App.hpp"
+#include "igcommon.h"
 #include "guiStyles.h"
-#include <spdlog/spdlog.h>
 
 App::App() {
     lapTime = 0.0;
@@ -14,12 +14,12 @@ App::~App() {
     delete mainScene;
 }
 
-int App::Run() {
-    if (!Initialize()) {
+int App::run() {
+    if (!initialize()) {
         return FAILED_INIT;
     }
     
-    if (!MainLoop()) {
+    if (!mainLoop()) {
         return FAILED_LOOP; 
     }
     
@@ -28,7 +28,7 @@ int App::Run() {
     return SUCCESS;
 }
 
-bool App::Initialize() {
+bool App::initialize() {
     controlFlags.quit = false;
     InitWindow(SCREEN_WIDTH_DEFAULT, SCREEN_HEIGHT_DEFAULT, "Idle Genius");
     ToggleFullscreen();
@@ -37,11 +37,12 @@ bool App::Initialize() {
     GuiLoadStyleDark();
     backgroundColor = GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR));
     
+    mainScene->init();
     
     return true; 
 }
 
-bool App::MainLoop() {
+bool App::mainLoop() {
     while(!controlFlags.quit) {
 
         if (WindowShouldClose()) {
@@ -49,11 +50,11 @@ bool App::MainLoop() {
             continue;
         }
         
-        HandleInput();
+        handleInput();
 
-        Update(GetFrameTime());
+        update(GetFrameTime());
 
-        Draw();
+        draw();
 
     }
 
@@ -61,7 +62,7 @@ bool App::MainLoop() {
     return true;
 }
 
-void App::HandleInput() {
+void App::handleInput() {
     int keyPressed = GetKeyPressed();
 
     switch(keyPressed)
@@ -117,17 +118,17 @@ void App::HandleInput() {
     }
 }
 
-void App::Update(float deltaTime) {
-    mainScene->Update(deltaTime, &controlFlags);
+void App::update(float deltaTime) {
+    mainScene->update(deltaTime, &controlFlags);
 }
 
-void App::Draw() {
+void App::draw() {
     
     BeginDrawing();
     
     ClearBackground(backgroundColor);
     
-    mainScene->Draw(&controlFlags);
+    mainScene->draw(&controlFlags);
 
     EndDrawing();
 }

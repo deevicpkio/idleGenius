@@ -1,14 +1,13 @@
 #ifndef IG_APP
 #define IG_APP
 #define RAYGUI_IMPLEMENTATION
-#include "common.h"
 #include "Scene.hpp"
 
 class App {
 public:
     App();
     ~App();
-    int Run();
+    int run();
 
 private:
     float lapTime;
@@ -16,10 +15,10 @@ private:
     Color backgroundColor;
     Scene* mainScene;
 
-    bool Initialize();
-    bool MainLoop();
-    void HandleInput();
-    void Update(float deltaTime);
-    void Draw();
+    bool initialize();
+    bool mainLoop();
+    void handleInput();
+    void update(float deltaTime);
+    void draw();
 };
 #endif

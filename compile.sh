@@ -54,7 +54,7 @@ echo " SOURCES: $SOURCES"
 echo " INCLUDING> $VENDOR"
 echo "-----------------------"
 
-clang++ $SOURCES -o $OUTPUT -std=c++17 -I $VENDOR -lraylib -lGL -lsqlite3 -lspdlog -lfmt -lm -lpthread -ldl -lrt -lX11 $verboseMode
+clang++ $SOURCES -o $OUTPUT -std=c++20 -I $VENDOR -lraylib -lGL -lsqlite3 -lspdlog -lfmt -lm -lpthread -ldl -lrt -lX11 $verboseMode
 
 # NOTE: Run application
 if [[ -e $OUTPUT ]]
