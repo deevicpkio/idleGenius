@@ -13,6 +13,7 @@ private:
     float lapTime;
     UIControlFlags controlFlags;
     Color backgroundColor;
+    Font regularFont;
     Scene* mainScene;
 
     bool initialize();

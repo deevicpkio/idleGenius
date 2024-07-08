@@ -1,9 +1,11 @@
 #include "Scene.hpp"
 #include <raygui.h>
+#include <string>
 #include "dbModels/DBManager.hpp"
 #include "igcommon.h"
 
-enum EmojiId {
+enum EmojiId 
+{
     BANK = 1,
     CHART = 2,
     COFFEE = 3,
@@ -42,7 +44,8 @@ enum EmojiId {
     EXIT = 36,
 };
 
-std::map<EmojiId, std::string> ICONS = {
+std::map<EmojiId, std::string> ICONS = 
+{
     {BANK, "🏦"},
     {CHART, "📈"},
     {COFFEE, "☕"},
@@ -114,7 +117,21 @@ void Scene::update(float deltaTime, UIControlFlags* rControlFlags)
 
 void Scene::layoutBuild()
 {
+    layoutBuildProfilePanel();
     layoutBuildMainPanel();
+    layoutBuildActionPanel();
+}
+
+void Scene::layoutBuildProfilePanel()
+{
+    profilePanelConstrains.panelView = (Rectangle){5, 5, SCREEN_WIDTH_DEFAULT*.3f, SCREEN_HEIGHT_DEFAULT*.6f};
+    // NOTE: Grid
+    profilePanelConstrains.dataGrid[0][0] = (Rectangle){10, 10, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 -Row 1
+    profilePanelConstrains.dataGrid[0][1] = (Rectangle){10, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE), SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 - Row 2
+    profilePanelConstrains.dataGrid[0][2] = (Rectangle){10, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE)*2, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 - Row 3
+    profilePanelConstrains.dataGrid[1][2] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE)*2, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
+    profilePanelConstrains.dataGrid[1][0] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
+    profilePanelConstrains.dataGrid[1][1] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE), SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
 }
 
 void Scene::layoutBuildMainPanel()
@@ -126,6 +143,9 @@ void Scene::layoutBuildMainPanel()
         (float)((mainPanelConstrains.entryHeight+mainPanelConstrains.entryGap) * idleGenerators->count()) *1.05f};
     mainPanelConstrains.panelView = { 0 };
     mainPanelConstrains.panelScroll = { 0, 0 };
+}
+void Scene::layoutBuildActionPanel()
+{
 }
 
 void Scene::draw(UIControlFlags* rControlFlags) 
@@ -145,8 +165,22 @@ void Scene::draw(UIControlFlags* rControlFlags)
 void Scene::drawProfile()
 {
     // NOTE: Player Info Panel
-    int dump = GuiPanel((Rectangle){5, 5, SCREEN_WIDTH_DEFAULT*.3f, SCREEN_HEIGHT_DEFAULT*.6f}, NULL);
-    GuiLabel((Rectangle){10, 10, SCREEN_WIDTH_DEFAULT*.3f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}, std::to_string(profile->getData().id).c_str());
+    int dump = GuiPanel(profilePanelConstrains.panelView, NULL);
+    // ID
+    std::string id = "Id: " + std::to_string(profile->getData().id);
+    GuiLabel(profilePanelConstrains.dataGrid[0][0], id.c_str());
+    // Name
+    std::string user_id = "Name: " + profile->getData().user_name;
+    GuiLabel(profilePanelConstrains.dataGrid[0][1], user_id.c_str());
+    // Rank
+    std::string rank = "Rank: " + std::to_string(profile->getData().rank_id);
+    GuiLabel(profilePanelConstrains.dataGrid[0][2], rank.c_str());
+    // Current Exp
+    std::string curr_exp = "Current Exp: " + std::to_string(profile->getData().current_exp);
+    GuiLabel(profilePanelConstrains.dataGrid[1][2], curr_exp.c_str());
+    // test
+    GuiLabel(profilePanelConstrains.dataGrid[1][0], curr_exp.c_str());
+    GuiLabel(profilePanelConstrains.dataGrid[1][1], curr_exp.c_str());
 }
 
 void Scene::drawIdleGenerators() 

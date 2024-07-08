@@ -9,7 +9,7 @@ namespace IG
 
 typedef struct {
 	int id;
-	std::string user_id;
+	std::string user_name;
 	int rank_id;
 	float current_exp;
 	double prestige;

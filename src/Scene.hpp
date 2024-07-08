@@ -5,19 +5,29 @@
 #include "dbModels/GeneratorModel.hpp"
 #include "dbModels/ProfileModel.hpp"
 
-typedef struct {
+typedef struct
+{
 	bool quit;
 	
 } UIControlFlags;
 
-typedef struct {
+typedef struct
+{
     Rectangle panelScrArea;
     Rectangle panelContent;
     Rectangle panelView;
     Vector2   panelScroll;
     int       entryHeight;
     int       entryGap;
-} MainPanelConstraints;
+} MainPanelConstrains;
+
+typedef struct
+{
+    Rectangle panelView;
+    Rectangle dataGrid[2][10];
+
+} ProfilePanelConstrains;
+
 
 class Scene 
 {
@@ -33,10 +43,14 @@ private:
     IG::Profile* profile;
     IG::Generator* idleGenerators;
     int toggleActive;
-    MainPanelConstraints mainPanelConstrains;
+
+    ProfilePanelConstrains profilePanelConstrains;
+    MainPanelConstrains mainPanelConstrains;
     
     void layoutBuild();
     void layoutBuildMainPanel();
+    void layoutBuildProfilePanel();
+    void layoutBuildActionPanel();
     void drawProfile(); 
     void drawIdleGenerators(); 
 };

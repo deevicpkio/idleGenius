@@ -12,8 +12,8 @@ namespace IG {
             if (strcmp(column[i], "id") == 0) {
                 newEntry.id = std::stoi(argv[i]); 
             }
-            if (strcmp(column[i], "user_id") == 0) {
-                newEntry.user_id = argv[i]; 
+            if (strcmp(column[i], "user_name") == 0) {
+                newEntry.user_name = argv[i]; 
             }
             if (strcmp(column[i], "rank_id") == 0) {
                 newEntry.rank_id = std::stof(argv[i]); 
@@ -61,7 +61,7 @@ namespace IG {
         
         spdlog::debug("Profile found");
         spdlog::debug("\nID: {0}\n - name {1}\n", 
-		      data.id, data.user_id);
+		      data.id, data.user_name);
     }
 
     ProfileEntry IG::Profile::getData() {

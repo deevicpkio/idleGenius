@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "igcommon.h"
 #include "guiStyles.h"
+#include <raylib.h>
+#include <spdlog/spdlog.h>
 
 App::App() {
     lapTime = 0.0;
@@ -35,6 +37,11 @@ bool App::initialize() {
     SetTargetFPS(60);
     
     GuiLoadStyleDark();
+    
+    regularFont = LoadFont("assets/fonts/AnonymiceProNerdFontMono-Regular.ttf");
+    spdlog::info("font base size: {}", regularFont.baseSize);
+    GuiSetFont(regularFont);
+    
     backgroundColor = GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR));
     
     mainScene->init();
