@@ -3,6 +3,8 @@
 #define RAYGUI_IMPLEMENTATION
 #include "Scene.hpp"
 
+namespace IG
+{
 class App {
 public:
     App();
@@ -22,4 +24,6 @@ private:
     void update(float deltaTime);
     void draw();
 };
+}
+
 #endif

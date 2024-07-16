@@ -1,3 +1,3 @@
 #!/usr/bin/bash
 
-./build/bin/app.out
+./build/raylib_app.out

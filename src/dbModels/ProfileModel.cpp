@@ -43,8 +43,8 @@ namespace IG {
     return 0;
     }
 
-    IG::Profile::Profile(DBManager* pDB) {
-        db = pDB;
+    IG::Profile::Profile(sqlite3* pDB) {
+        dbInstance = pDB;
     }
 
     void IG::Profile::init()
@@ -57,7 +57,7 @@ namespace IG {
         std::string sql = "SELECT * FROM profile;";
         char* err = NULL;
         spdlog::debug("Before executing Profile SQL statement");
-	db->exec(sql, IG::fProfile, this);
+        sqlite3_exec(dbInstance, sql.c_str(), IG::fProfile, this, &err);
         
         spdlog::debug("Profile found");
         spdlog::debug("\nID: {0}\n - name {1}\n", 

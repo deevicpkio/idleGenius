@@ -21,47 +21,28 @@ do
 done
 
 # NOTE: Prepare output (delete previous version on destination)
-OUTPUT=./build/bin/app.out
+OUTPUT=./build/raylib_app.out
 if [[ -e $OUTPUT ]]
 then
   rm $OUTPUT
 fi
-
-# NOTE: Prepare source code list to compile
-FILE_LIST='./src'
-for entry in "$FILE_LIST"/*.cpp
-do
-  SOURCES="$SOURCES $entry"
-done
-for entry in "$FILE_LIST"/*/*.cpp
-do
-  SOURCES="$SOURCES $entry"
-done
-
-# NOTE: Prepare vendor headers 
-DIR_LIST='./vendor'
-for entry in "$DIR_LIST"/*/
-do
-  VENDOR="$VENDOR $entry"
-done
 
 # NOTE: Execute compilation process
 echo "-----------------------"
 echo " Compiling Project ... "
 echo "-----------------------"
 echo " Output: $OUTPUT"
-echo " SOURCES: $SOURCES"
-echo " INCLUDING> $VENDOR"
 echo "-----------------------"
 
-clang++ $SOURCES -o $OUTPUT -std=c++20 -I $VENDOR -lraylib -lGL -lsqlite3 -lspdlog -lfmt -lm -lpthread -ldl -lrt -lX11 $verboseMode
+cmake -B build
+cmake --build build/ -j4
 
 # NOTE: Run application
 if [[ -e $OUTPUT ]]
 then
-  echo "---------------------------"
-  echo "  COMPILATION SUCCESSFUL! "
-  echo "---------------------------"
+  echo "-------------------------"
+  echo " COMPILATION SUCCESSFUL! "
+  echo "-------------------------"
   
   if [[ $runAfter = true ]]
   then

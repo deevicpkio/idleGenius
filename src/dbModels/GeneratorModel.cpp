@@ -46,8 +46,8 @@ namespace IG {
     return 0;
     }
 
-    IG::Generator::Generator(DBManager* pDB) {
-        db = pDB;
+    IG::Generator::Generator(sqlite3* pDB) {
+        dbInstance = pDB;
     }
 
     void IG::Generator::init()
@@ -56,10 +56,11 @@ namespace IG {
     }
 
     void IG::Generator::readDB() {
+        char* err = NULL;
 
         std::string sql = "SELECT * FROM idlegenerator;";
         spdlog::debug("Before executing Idle Generator SQL statement");
-	db->exec(sql, IG::fGeneratorIdle, this);
+        sqlite3_exec(dbInstance, sql.c_str(), IG::fGeneratorIdle, this, &err);
         
         spdlog::debug("Generators found: {0}", data.size());
         

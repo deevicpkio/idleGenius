@@ -4,6 +4,9 @@
 #include <raylib.h>
 #include <spdlog/spdlog.h>
 
+namespace IG 
+{
+
 App::App() {
     lapTime = 0.0;
     controlFlags.quit = false;
@@ -140,3 +143,4 @@ void App::draw() {
     EndDrawing();
 }
 
+}

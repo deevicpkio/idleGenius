@@ -2,8 +2,11 @@
 #include <raygui.h>
 #include <string>
 #include "dbModels/DBManager.hpp"
+#include "dbModels/ProfileModel.hpp"
 #include "igcommon.h"
 
+namespace IG
+{
 enum EmojiId 
 {
     BANK = 1,
@@ -90,21 +93,12 @@ Scene::Scene()
 
 Scene::~Scene() 
 {
-    delete profile;
-    delete idleGenerators;
     delete dbManager;
 }
 
 void Scene::init()
 {
-    spdlog::debug("Before instantiating generators");
     dbManager = new DBManager();
-    profile = new IG::Profile(dbManager);
-    profile->init();
-
-    idleGenerators = new IG::Generator(dbManager);
-    idleGenerators->init();
-
     toggleActive = 0;
 
     layoutBuild();
@@ -140,7 +134,7 @@ void Scene::layoutBuildMainPanel()
     mainPanelConstrains.entryGap = 5;
     mainPanelConstrains.panelScrArea = {SCREEN_WIDTH_DEFAULT*.3+5, 5, SCREEN_WIDTH_DEFAULT*.7-5, SCREEN_HEIGHT_DEFAULT-5};
     mainPanelConstrains.panelContent = {5+SCREEN_WIDTH_DEFAULT*.3+10, 5+10, SCREEN_WIDTH_DEFAULT*.7-5-10, 
-        (float)((mainPanelConstrains.entryHeight+mainPanelConstrains.entryGap) * idleGenerators->count()) *1.05f};
+        (float)((mainPanelConstrains.entryHeight+mainPanelConstrains.entryGap) * dbManager->generatorCount()) *1.05f};
     mainPanelConstrains.panelView = { 0 };
     mainPanelConstrains.panelScroll = { 0, 0 };
 }
@@ -164,19 +158,20 @@ void Scene::draw(UIControlFlags* rControlFlags)
 
 void Scene::drawProfile()
 {
+    ProfileEntry profile = dbManager->getProfileData();
     // NOTE: Player Info Panel
     int dump = GuiPanel(profilePanelConstrains.panelView, NULL);
     // ID
-    std::string id = "Id: " + std::to_string(profile->getData().id);
+    std::string id = "Id: " + std::to_string(profile.id);
     GuiLabel(profilePanelConstrains.dataGrid[0][0], id.c_str());
     // Name
-    std::string user_id = "Name: " + profile->getData().user_name;
+    std::string user_id = "Name: " + profile.user_name;
     GuiLabel(profilePanelConstrains.dataGrid[0][1], user_id.c_str());
     // Rank
-    std::string rank = "Rank: " + std::to_string(profile->getData().rank_id);
+    std::string rank = "Rank: " + std::to_string(profile.rank_id);
     GuiLabel(profilePanelConstrains.dataGrid[0][2], rank.c_str());
     // Current Exp
-    std::string curr_exp = "Current Exp: " + std::to_string(profile->getData().current_exp);
+    std::string curr_exp = "Current Exp: " + std::to_string(profile.current_exp);
     GuiLabel(profilePanelConstrains.dataGrid[1][2], curr_exp.c_str());
     // test
     GuiLabel(profilePanelConstrains.dataGrid[1][0], curr_exp.c_str());
@@ -191,7 +186,7 @@ void Scene::drawIdleGenerators()
     
     BeginScissorMode(mainPanelConstrains.panelView.x, mainPanelConstrains.panelView.y, mainPanelConstrains.panelView.width, mainPanelConstrains.panelView.height);
     int i = 0;
-    for(auto gen : idleGenerators->getData()) {
+    for(auto gen : dbManager->getGenerators()) {
         Rectangle contentPos = {15+mainPanelConstrains.panelScrArea.x + mainPanelConstrains.panelScroll.x, mainPanelConstrains.panelScrArea.y + ((mainPanelConstrains.entryHeight + mainPanelConstrains.entryGap) * i) + mainPanelConstrains.panelScroll.y + 15, SCREEN_WIDTH_DEFAULT*.7f*.7, (float)mainPanelConstrains.entryHeight};
         dump = GuiPanel(contentPos, NULL);
         GuiLabel((Rectangle){contentPos.x + 10, contentPos.y + 5, SCREEN_WIDTH_DEFAULT*.7f-20, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}, gen.name.c_str());
@@ -205,3 +200,6 @@ void Scene::drawIdleGenerators()
     EndScissorMode();
 
 }
+
+}
+

@@ -3,9 +3,10 @@
 
 #pragma once
 
-#include "DBManager.hpp"
+#include <string>
 #include <cstdint>
 #include <vector>
+#include <sqlite3.h>
 
 namespace IG
 {
@@ -27,7 +28,9 @@ typedef struct {
 	
 class Generator {
 public:
-	Generator(DBManager* pDB);
+	sqlite3* dbInstance;
+	
+	Generator(sqlite3* pDB);
 	void init();
 	std::vector<GeneratorEntry> getData();
 	const int count();
@@ -35,7 +38,6 @@ public:
 	void update(float deltaTime);
 
 private:
-	DBManager* db;
 	std::vector<GeneratorEntry> data;
 
 	void readDB();

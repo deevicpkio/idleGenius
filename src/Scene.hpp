@@ -5,9 +5,12 @@
 #include "dbModels/GeneratorModel.hpp"
 #include "dbModels/ProfileModel.hpp"
 
+
+namespace IG 
+{
 typedef struct
 {
-	bool quit;
+    bool quit;
 	
 } UIControlFlags;
 
@@ -39,13 +42,12 @@ public:
     void draw(UIControlFlags* rControlFlags);
 
 private:
-    DBManager* dbManager;
-    IG::Profile* profile;
-    IG::Generator* idleGenerators;
     int toggleActive;
 
     ProfilePanelConstrains profilePanelConstrains;
     MainPanelConstrains mainPanelConstrains;
+    
+    DBManager* dbManager;
     
     void layoutBuild();
     void layoutBuildMainPanel();
@@ -54,4 +56,5 @@ private:
     void drawProfile(); 
     void drawIdleGenerators(); 
 };
+}
 #endif

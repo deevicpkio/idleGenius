@@ -2,7 +2,8 @@
 #define IG_PROFILE_MODEL
 #pragma once
 
-#include "DBManager.hpp"
+#include <string>
+#include <sqlite3.h>
 
 namespace IG
 {
@@ -24,14 +25,14 @@ typedef struct {
 	
 class Profile {
 public:
-	Profile(DBManager* pDB);
+	Profile(sqlite3* pDB);
 	void init();
 	ProfileEntry getData();
 	void setData(ProfileEntry pNewEntry);
 	void update(float deltaTime);
 
 private:
-	DBManager* db;
+	sqlite3* dbInstance;
 	ProfileEntry data;
 
 	void readDB();
