@@ -2,9 +2,6 @@
 #define IG_SCENE
 #include <raylib.h>
 #include "dbModels/DBManager.hpp"
-#include "dbModels/GeneratorModel.hpp"
-#include "dbModels/ProfileModel.hpp"
-
 
 namespace IG 
 {
@@ -27,6 +24,7 @@ typedef struct
 typedef struct
 {
     Rectangle panelView;
+    Rectangle gridPanel[2][10];
     Rectangle dataGrid[2][10];
 
 } ProfilePanelConstrains;

@@ -1,5 +1,6 @@
 #ifndef IG_COMMON
 #define IG_COMMON
+#include <sstream>
 #include <spdlog/spdlog.h>
 
 #define SCREEN_WIDTH_DEFAULT 1920
@@ -11,4 +12,12 @@ enum ERROR_HANDLING {
 		FAILED_LOOP,
 };
 
+template <typename T>
+std::string to_string_precision(const T a_value, const int n = 6)
+{
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << a_value;
+    return std::move(out).str();
+}
 #endif

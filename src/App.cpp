@@ -39,10 +39,11 @@ bool App::initialize() {
     ToggleFullscreen();
     SetTargetFPS(60);
     
-    GuiLoadStyleDark();
+    GuiLoadStyleCyber();
     
-    regularFont = LoadFont("assets/fonts/AnonymiceProNerdFontMono-Regular.ttf");
+    regularFont = LoadFont("assets/fonts/MesloLGS NF Regular.ttf");
     spdlog::info("font base size: {}", regularFont.baseSize);
+    regularFont.baseSize = 18;
     GuiSetFont(regularFont);
     
     backgroundColor = GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR));

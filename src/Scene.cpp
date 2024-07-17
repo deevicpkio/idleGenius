@@ -118,14 +118,57 @@ void Scene::layoutBuild()
 
 void Scene::layoutBuildProfilePanel()
 {
+    float topMargin = 10;
+    float leftMargin = 10;
+    float colWidth = SCREEN_WIDTH_DEFAULT*.3f*.5f-15;
+    float rowHeight = (float)GuiGetStyle(DEFAULT, TEXT_SIZE)*2.0+topMargin;
+    float colSeparation = 20;
+    float rowSeparation = 5;
+    float textMargin = 5;
+
     profilePanelConstrains.panelView = (Rectangle){5, 5, SCREEN_WIDTH_DEFAULT*.3f, SCREEN_HEIGHT_DEFAULT*.6f};
-    // NOTE: Grid
-    profilePanelConstrains.dataGrid[0][0] = (Rectangle){10, 10, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 -Row 1
-    profilePanelConstrains.dataGrid[0][1] = (Rectangle){10, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE), SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 - Row 2
-    profilePanelConstrains.dataGrid[0][2] = (Rectangle){10, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE)*2, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 1 - Row 3
-    profilePanelConstrains.dataGrid[1][2] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE)*2, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
-    profilePanelConstrains.dataGrid[1][0] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10, SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
-    profilePanelConstrains.dataGrid[1][1] = (Rectangle){SCREEN_WIDTH_DEFAULT*.3f*.5f-5, 10+(float)GuiGetStyle(DEFAULT, TEXT_SIZE), SCREEN_WIDTH_DEFAULT*.3f*.5f-5, (float)GuiGetStyle(DEFAULT, TEXT_SIZE)}; // Col 2 - Row 3
+    // NOTE: Grid Cell Panel
+    profilePanelConstrains.gridPanel[0][0] = (Rectangle){leftMargin, topMargin+rowSeparation, colWidth, rowHeight}; // Col 1 -Row 1
+    profilePanelConstrains.gridPanel[0][1] = (Rectangle){leftMargin, topMargin+rowSeparation*2+rowHeight, colWidth, rowHeight}; // Col 1 - Row 2
+    profilePanelConstrains.gridPanel[0][2] = (Rectangle){leftMargin, topMargin+rowSeparation*3+rowHeight*2, colWidth, rowHeight}; // Col 1 - Row 3
+    profilePanelConstrains.gridPanel[0][3] = (Rectangle){leftMargin, topMargin+rowSeparation*4+rowHeight*3, colWidth, rowHeight}; // Col 1 - Row 4
+    profilePanelConstrains.gridPanel[0][4] = (Rectangle){leftMargin, topMargin+rowSeparation*5+rowHeight*4, colWidth, rowHeight}; // Col 1 - Row 5
+    profilePanelConstrains.gridPanel[0][5] = (Rectangle){leftMargin, topMargin+rowSeparation*6+rowHeight*5, colWidth, rowHeight}; // Col 1 - Row 6
+    profilePanelConstrains.gridPanel[0][6] = (Rectangle){leftMargin, topMargin+rowSeparation*7+rowHeight*6, colWidth, rowHeight}; // Col 1 - Row 7
+    profilePanelConstrains.gridPanel[0][7] = (Rectangle){leftMargin, topMargin+rowSeparation*8+rowHeight*7, colWidth, rowHeight}; // Col 1 - Row 8
+    profilePanelConstrains.gridPanel[0][8] = (Rectangle){leftMargin, topMargin+rowSeparation*9+rowHeight*8, colWidth, rowHeight}; // Col 1 - Row 9
+    profilePanelConstrains.gridPanel[0][9] = (Rectangle){leftMargin, topMargin+rowSeparation*10+rowHeight*9, colWidth, rowHeight}; // Col 1 - Row 10
+    profilePanelConstrains.gridPanel[1][0] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation, colWidth, rowHeight}; // Col 2 - Row 1
+    profilePanelConstrains.gridPanel[1][1] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*2+rowHeight, colWidth, rowHeight}; // Col 2 - Row 2
+    profilePanelConstrains.gridPanel[1][2] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*3+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 3
+    profilePanelConstrains.gridPanel[1][3] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*4+rowHeight*3, colWidth, rowHeight}; // Col 2 - Row 4
+    profilePanelConstrains.gridPanel[1][4] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*5+rowHeight*4, colWidth, rowHeight}; // Col 2 - Row 5
+    profilePanelConstrains.gridPanel[1][5] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*6+rowHeight*5, colWidth, rowHeight}; // Col 2 - Row 6
+    profilePanelConstrains.gridPanel[1][6] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*7+rowHeight*6, colWidth, rowHeight}; // Col 2 - Row 7
+    profilePanelConstrains.gridPanel[1][7] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*8+rowHeight*7, colWidth, rowHeight}; // Col 2 - Row 8
+    profilePanelConstrains.gridPanel[1][8] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*9+rowHeight*8, colWidth, rowHeight}; // Col 2 - Row 9
+    profilePanelConstrains.gridPanel[1][9] = (Rectangle){leftMargin+colWidth+colSeparation, topMargin+rowSeparation*10+rowHeight*9, colWidth, rowHeight}; // Col 2 - Row 10
+    // NOTE: Data Grid
+    profilePanelConstrains.dataGrid[0][0] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation, colWidth, rowHeight}; // Col 1 -Row 1
+    profilePanelConstrains.dataGrid[0][1] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*2+rowHeight, colWidth, rowHeight}; // Col 1 - Row 2
+    profilePanelConstrains.dataGrid[0][2] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*3+rowHeight*2, colWidth, rowHeight}; // Col 1 - Row 3
+    profilePanelConstrains.dataGrid[0][3] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*4+rowHeight*3, colWidth, rowHeight}; // Col 1 - Row 4
+    profilePanelConstrains.dataGrid[0][4] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*5+rowHeight*4, colWidth, rowHeight}; // Col 1 - Row 5
+    profilePanelConstrains.dataGrid[0][5] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*6+rowHeight*5, colWidth, rowHeight}; // Col 1 - Row 6
+    profilePanelConstrains.dataGrid[0][6] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*7+rowHeight*6, colWidth, rowHeight}; // Col 1 - Row 7
+    profilePanelConstrains.dataGrid[0][7] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*8+rowHeight*7, colWidth, rowHeight}; // Col 1 - Row 8
+    profilePanelConstrains.dataGrid[0][8] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*9+rowHeight*8, colWidth, rowHeight}; // Col 1 - Row 9
+    profilePanelConstrains.dataGrid[0][9] = (Rectangle){leftMargin+textMargin, topMargin+rowSeparation*10+rowHeight*9, colWidth, rowHeight}; // Col 1 - Row 10
+    profilePanelConstrains.dataGrid[1][0] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation, colWidth, rowHeight}; // Col 2 - Row 1
+    profilePanelConstrains.dataGrid[1][1] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*2+rowHeight, colWidth, rowHeight}; // Col 2 - Row 2
+    profilePanelConstrains.dataGrid[1][2] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*3+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 3
+    profilePanelConstrains.dataGrid[1][3] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*4+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 4
+    profilePanelConstrains.dataGrid[1][4] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*5+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 5
+    profilePanelConstrains.dataGrid[1][5] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*6+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 6
+    profilePanelConstrains.dataGrid[1][6] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*7+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 7
+    profilePanelConstrains.dataGrid[1][7] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*8+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 8
+    profilePanelConstrains.dataGrid[1][8] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*9+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 9
+    profilePanelConstrains.dataGrid[1][9] = (Rectangle){leftMargin+colWidth+colSeparation+textMargin, topMargin+rowSeparation*10+rowHeight*2, colWidth, rowHeight}; // Col 2 - Row 10
 }
 
 void Scene::layoutBuildMainPanel()
@@ -161,21 +204,36 @@ void Scene::drawProfile()
     ProfileEntry profile = dbManager->getProfileData();
     // NOTE: Player Info Panel
     int dump = GuiPanel(profilePanelConstrains.panelView, NULL);
-    // ID
-    std::string id = "Id: " + std::to_string(profile.id);
-    GuiLabel(profilePanelConstrains.dataGrid[0][0], id.c_str());
     // Name
     std::string user_id = "Name: " + profile.user_name;
-    GuiLabel(profilePanelConstrains.dataGrid[0][1], user_id.c_str());
+
+    dump = GuiPanel(profilePanelConstrains.gridPanel[0][0], NULL);
+    GuiLabel(profilePanelConstrains.dataGrid[0][0], user_id.c_str());
+    
     // Rank
-    std::string rank = "Rank: " + std::to_string(profile.rank_id);
-    GuiLabel(profilePanelConstrains.dataGrid[0][2], rank.c_str());
-    // Current Exp
-    std::string curr_exp = "Current Exp: " + std::to_string(profile.current_exp);
-    GuiLabel(profilePanelConstrains.dataGrid[1][2], curr_exp.c_str());
-    // test
-    GuiLabel(profilePanelConstrains.dataGrid[1][0], curr_exp.c_str());
-    GuiLabel(profilePanelConstrains.dataGrid[1][1], curr_exp.c_str());
+    std::string curr_exp = to_string_precision(profile.current_exp, 0);
+    std::string rank = "Rank: " + std::to_string(profile.rank_id) + " (" + curr_exp + ")";
+    
+    dump = GuiPanel(profilePanelConstrains.gridPanel[1][0], NULL);
+    GuiLabel(profilePanelConstrains.dataGrid[1][0], rank.c_str());
+    
+    // Wealth
+    std::string wealth = "Total Wealth: " + to_string_precision(profile.lifetime_currency, 0);
+    
+    dump = GuiPanel(profilePanelConstrains.gridPanel[0][1], NULL);
+    GuiLabel(profilePanelConstrains.dataGrid[0][1], wealth.c_str());
+    
+    // Current Gold
+    std::string current_gold = "Current Gold: " + to_string_precision(profile.current_gold, 0);
+    
+    dump = GuiPanel(profilePanelConstrains.gridPanel[1][1], NULL);
+    GuiLabel(profilePanelConstrains.dataGrid[1][1], current_gold.c_str());
+    
+    // Prestige Points
+    std::string prestige = "Prestige: " + to_string_precision(profile.prestige, 1);
+    
+    dump = GuiPanel(profilePanelConstrains.gridPanel[0][2], NULL);
+    GuiLabel(profilePanelConstrains.dataGrid[0][2], prestige.c_str());
 }
 
 void Scene::drawIdleGenerators() 
