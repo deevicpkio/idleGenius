@@ -12,6 +12,8 @@ _deps
 cmake
 build
 .cache
+db
+assets
 
 # Prerequisites
 *.d
